@@ -29,17 +29,21 @@ class ReviewController {
                 yield ReviewController.companyService
                     .getRepository()
                     .save(companyM);
+                let formatDate = req.body.experienceDate.split("");
+                formatDate.pop();
+                formatDate = formatDate.join("");
                 const Review = yield ReviewController.service.create({
                     company: company,
                     description: req.body.description,
                     rating: req.body.rating,
                     user: user,
                     title: req.body.title,
+                    experienceDate: formatDate
                 });
                 return res.status(201).send("review creada correctamente");
             }
             catch (error) {
-                return res.status(400).send("review creada correctamente");
+                return res.status(400).send("Error al crear la review");
             }
         });
     }
