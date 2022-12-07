@@ -12,6 +12,7 @@ import ReviewSeeder from "./seeds/review";
 import ReviewAsSeeder from "./seeds/reviewAs";
 import RoleSeeder from "./seeds/role";
 import UserSeeder from "./seeds/user";
+console.log(process.env.DB_HOST,"asdasdasd");
 
 const options: DataSourceOptions & SeederOptions = {
   type: process.env.DB_DRIVER as "mysql",
