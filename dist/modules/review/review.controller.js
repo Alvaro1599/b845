@@ -22,8 +22,13 @@ class ReviewController {
                 const user = (yield ReviewController.userService.findOneById(id));
                 let company = yield ReviewController.companyService.findOneByHostname(url.host);
                 if (!company) {
-                    company = yield ReviewController.companyService.create(Object.assign(Object.assign({}, req.body.company), { ratingGeneral: 0, reviewsQuantity: 0, name: req.body.companyName, website: url.host, review: null, role: 3 }));
+                    company = yield ReviewController.companyService.create(Object.assign(Object.assign({}, req.body.company), { ratingGeneral: 0, reviewsQuantity: 0, name: req.body.companyName, website: url.host, role: 3 }));
                 }
+                const { companyM, userM } = ReviewController.service.upQuantityR(user, company, req.body.rating);
+                yield ReviewController.userService.getRepository().save(userM);
+                yield ReviewController.companyService
+                    .getRepository()
+                    .save(companyM);
                 const Review = yield ReviewController.service.create({
                     company: company,
                     description: req.body.description,
@@ -31,11 +36,6 @@ class ReviewController {
                     user: user,
                     title: req.body.title,
                 });
-                const { companyM, userM } = ReviewController.service.upQuantity(user, company, Review);
-                yield ReviewController.userService.getRepository().save(userM);
-                yield ReviewController.companyService
-                    .getRepository()
-                    .save(companyM);
                 return res.status(201).send("review creada correctamente");
             }
             catch (error) {

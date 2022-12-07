@@ -54,6 +54,17 @@ class ReviewService extends repository_1.RepositoryDB {
             companyM: company,
         };
     }
+    upQuantityR(user, company, rating) {
+        user.reviewsQuantity = user.reviewsQuantity + 1;
+        company.ratingGeneral =
+            (company.ratingGeneral * company.reviewsQuantity + rating) /
+                (company.reviewsQuantity + 1);
+        company.reviewsQuantity = company.reviewsQuantity + 1;
+        return {
+            userM: user,
+            companyM: company,
+        };
+    }
     downQuantity(user, company, review) {
         user.reviewsQuantity = user.reviewsQuantity - 1;
         company.reviewsQuantity = company.reviewsQuantity - 1;
@@ -73,9 +84,7 @@ class ReviewService extends repository_1.RepositoryDB {
                         id,
                     },
                 },
-                relations: {
-                    company: true,
-                },
+                relations: ["company"],
             });
             return entities.map((entity) => (Object.assign(Object.assign({}, entity), { companyName: entity.company.name, companyId: entity.company.id, companyURL: entity.company.website, company: undefined })));
         });

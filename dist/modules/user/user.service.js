@@ -29,7 +29,6 @@ class userService extends repository_1.RepositoryDB {
                 return user;
             }
             catch (error) {
-                console.log(error);
                 throw error;
             }
         });
