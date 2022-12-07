@@ -1,0 +1,1 @@
+{"version":3,"file":"company.js","sourceRoot":"","sources":["../../../src/database/seeds/company.ts"],"names":[],"mappings":";;;;;;;;;;;AAGA,oEAAiE;AAEjE,MAAqB,aAAa;IAC1B,GAAG,CACP,UAAsB,EACtB,cAAoC;;YAEpC,MAAM,aAAa,GAAG,MAAM,cAAc,CAAC,GAAG,CAAC,iBAAO,CAAC,CAAC;YACxD,MAAM,aAAa,CAAC,QAAQ,CAAC,EAAE,CAAC,CAAC;QACnC,CAAC;KAAA;CACF;AARD,gCAQC"}

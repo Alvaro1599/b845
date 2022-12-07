@@ -13,8 +13,8 @@
     "experimentalDecorators": true,
     "strictNullChecks": true,
     "allowJs": true,
-    "checkJs": false,
-    "skipLibCheck": true
+    "checkJs": true,
+    "skipLibCheck": true,
   },
   "include": ["src/**/*"]
 }
