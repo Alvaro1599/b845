@@ -36,7 +36,7 @@ class CompanyController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const entity = yield CompanyController.service.findOne(id);
-            const _a = entity, { password } = _a, data = __rest(_a, ["password"]);
+            const data = __rest(entity, []);
             const format = data.review.map(x => {
                 x.company.password = "";
                 x.user.password = "";

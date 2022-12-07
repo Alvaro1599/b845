@@ -9,7 +9,7 @@ const routerCompany = (0, express_1.Router)();
 class CompanyRouter {
     static getRoutes() {
         CompanyRouter.router.get("/", common_1.CommonValidator.isCompany, CompanyRouter.controller.getMyCompany);
-        CompanyRouter.router.get("/:id", CompanyRouter.controller.getMyCompanyId);
+        CompanyRouter.router.get("/:id", common_1.CommonValidator.uuidValidator, CompanyRouter.controller.getMyCompanyId);
         CompanyRouter.router.put("/", companyValidator_1.CompanyValidator.emptyCompany, common_1.CommonValidator.isCompany, CompanyRouter.controller.updateCompany);
         CompanyRouter.router.delete("/", common_1.CommonValidator.isCompany, CompanyRouter.controller.deleteCompany);
         CompanyRouter.router.delete("/admin/:id", common_1.CommonValidator.isAdmin, common_1.CommonValidator.uuidValidator, CompanyRouter.controller.deleteCompanyAdmin);
