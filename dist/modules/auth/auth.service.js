@@ -44,7 +44,6 @@ class AuthService {
                     throw new errorModel_1.ErrorService(401, "Credenciales inválidas");
                 }
                 const { password } = entity, data = __rest(entity, ["password"]);
-                password === null || password === void 0 ? void 0 : password.at(4);
                 return Object.assign(Object.assign({}, jwt_1.Jwt.encoder(data)), { user: Object.assign({}, data) });
             }
             catch (error) {
