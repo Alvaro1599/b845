@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", company_1.Company)
 ], Review.prototype, "company", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "timestamp" }),
+    (0, typeorm_1.Column)({ nullable: true, type: "timestamp", default: new Date().toISOString().slice(0, 19).replace('T', ' ') }),
     __metadata("design:type", Date)
 ], Review.prototype, "createdAt", void 0);
 Review = __decorate([

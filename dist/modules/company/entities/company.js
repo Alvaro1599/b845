@@ -17,7 +17,7 @@ const role_1 = require("../../role/entities/role");
 let Company = class Company extends baseModel_1.Uuid {
 };
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: "varchar" }),
+    (0, typeorm_1.Column)({ nullable: true, type: "varchar" }),
     __metadata("design:type", String)
 ], Company.prototype, "email", void 0);
 __decorate([
@@ -61,15 +61,15 @@ __decorate([
     __metadata("design:type", String)
 ], Company.prototype, "website", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: "varchar" }),
+    (0, typeorm_1.Column)({ nullable: true, type: "varchar" }),
     __metadata("design:type", String)
 ], Company.prototype, "workEmail", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: "float" }),
+    (0, typeorm_1.Column)({ nullable: false, type: "float", default: 0 }),
     __metadata("design:type", Number)
 ], Company.prototype, "ratingGeneral", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: "varchar" }),
+    (0, typeorm_1.Column)({ nullable: true, type: "varchar" }),
     __metadata("design:type", String)
 ], Company.prototype, "password", void 0);
 __decorate([
