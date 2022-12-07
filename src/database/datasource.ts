@@ -25,7 +25,10 @@ const options: DataSourceOptions & SeederOptions = {
   factories: [UserFactory, CompanyFactory, ReviewFactory],
   migrations: [path.join(__dirname + "/migrations/*{.js,.ts}")],
   entities: [path.join(__dirname + "/../modules/**/entities/*{.js,.ts}")],
-  logging:true
+  logging:true,
+  extra:{
+    socketPath: process.env.DB_HOST
+  }
 };
 
 const AppDataSource: DataSource = new DataSource(options);
