@@ -16,7 +16,7 @@ console.log(process.env.DB_HOST,"asdasdasd");
 
 const options: DataSourceOptions & SeederOptions = {
   type: process.env.DB_DRIVER as "mysql",
-  host: process.env.DB_HOST,
+  host: process.env.DB_HOST as string,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -25,6 +25,7 @@ const options: DataSourceOptions & SeederOptions = {
   factories: [UserFactory, CompanyFactory, ReviewFactory],
   migrations: [path.join(__dirname + "/migrations/*{.js,.ts}")],
   entities: [path.join(__dirname + "/../modules/**/entities/*{.js,.ts}")],
+  logging:true
 };
 
 const AppDataSource: DataSource = new DataSource(options);
