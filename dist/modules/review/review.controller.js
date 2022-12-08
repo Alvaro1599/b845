@@ -160,11 +160,12 @@ class ReviewController {
             try {
                 if (rating) {
                     const rv = yield ReviewController.service.findOneById(id);
-                    console.log("asdasd", rating, rv === null || rv === void 0 ? void 0 : rv.rating);
                     if (rv) {
                         const company = rv.company;
+                        console.log(company);
+                        console.log(rv);
                         console.log(((company.ratingGeneral * company.reviewsQuantity) - rv.rating + rating), company.reviewsQuantity, ((company.ratingGeneral * company.reviewsQuantity) - rv.rating + rating) / company.reviewsQuantity);
-                        company.ratingGeneral = ((company.ratingGeneral * company.reviewsQuantity) - rv.rating + rating) / company.reviewsQuantity;
+                        company.ratingGeneral = ((company.ratingGeneral * company.reviewsQuantity) - (+rv.rating) + rating) / company.reviewsQuantity;
                         console.log(company);
                         yield ReviewController.companyService.getRepository().save(company);
                     }
