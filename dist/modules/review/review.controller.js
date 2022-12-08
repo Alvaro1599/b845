@@ -51,6 +51,7 @@ class ReviewController {
                 return res.status(201).send("review creada correctamente");
             }
             catch (error) {
+                console.log(error);
                 return res.status(400).send("Error al crear la review");
             }
         });
@@ -148,8 +149,26 @@ class ReviewController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const userId = req.body.user.id;
-            const { title, rating, description } = req.body;
+            const { title, rating, description, experienceDate } = req.body;
+            console.log(req.body);
+            let formatDate;
+            if (experienceDate) {
+                formatDate = experienceDate.split("");
+                formatDate.pop();
+                formatDate = formatDate.join("");
+            }
             try {
+                if (rating) {
+                    const rv = yield ReviewController.service.findOneById(id);
+                    console.log("asdasd", rating, rv === null || rv === void 0 ? void 0 : rv.rating);
+                    if (rv) {
+                        const company = rv.company;
+                        console.log(((company.ratingGeneral * company.reviewsQuantity) - rv.rating + rating), company.reviewsQuantity, ((company.ratingGeneral * company.reviewsQuantity) - rv.rating + rating) / company.reviewsQuantity);
+                        company.ratingGeneral = ((company.ratingGeneral * company.reviewsQuantity) - rv.rating + rating) / company.reviewsQuantity;
+                        console.log(company);
+                        yield ReviewController.companyService.getRepository().save(company);
+                    }
+                }
                 const review = yield ReviewController.service.getRepository().update({
                     id,
                     user: {
@@ -159,6 +178,7 @@ class ReviewController {
                     title,
                     rating,
                     description,
+                    experienceDate: formatDate
                 });
                 if (review.affected === 0) {
                     return res

@@ -13,7 +13,7 @@ class ReviewRouter {
         ReviewRouter.router.get("/company", common_1.CommonValidator.isCompany, ReviewRouter.controller.getMeReviewsCompany);
         ReviewRouter.router.post("/", reviewValidator_1.ReviewValidator.createReview, common_1.CommonValidator.owner, ReviewRouter.controller.createReview);
         ReviewRouter.router.post("/companyOrUser", reviewValidator_1.ReviewValidator.createReviewGeneral, common_1.CommonValidator.owner, ReviewRouter.controller.createReviewGeneral);
-        ReviewRouter.router.put("/:id", common_1.CommonValidator.uuidValidator, reviewValidator_1.ReviewValidator.updateReview, common_1.CommonValidator.owner, ReviewRouter.controller.updateReview);
+        ReviewRouter.router.put("/:id", common_1.CommonValidator.uuidValidator, reviewValidator_1.ReviewValidator.fieldsReview, reviewValidator_1.ReviewValidator.updateReview, common_1.CommonValidator.owner, ReviewRouter.controller.updateReview);
         ReviewRouter.router.delete("/:id", common_1.CommonValidator.uuidValidator, common_1.CommonValidator.owner, ReviewRouter.controller.deleteReview);
         return ReviewRouter.router;
     }

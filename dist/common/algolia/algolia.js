@@ -70,18 +70,19 @@ class Algolia {
 exports.Algolia = Algolia;
 Algolia.instance = (0, algoliasearch_1.default)(process.env.ALGOLIAID, process.env.ALGOLIAKEY);
 Algolia.index = Algolia.instance.initIndex("companiesSearch");
-/* (
+/*
+(
     
     async ()=>{
         await AppDataSource.initialize()
     const data=await new CompanyService().findAll()
     try {
         await Algolia.index.saveObjects(data.map((x)=>Algolia.formatCompany(x)))
-        
+    console.log("listo");
     } catch (error) {
     console.log(error);
-            
     }
     }
-)() */
+)()
+ */ 
 //# sourceMappingURL=algolia.js.map

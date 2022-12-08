@@ -50,7 +50,8 @@ class CompanyController {
     static createCompany(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const entity = yield CompanyController.service.create(Object.assign(Object.assign({}, req.body), { reviewsQuantity: 0, role: 3, password: yield encriptor_1.Encryptor.hash(req.body.password), ratingGeneral: 0 }));
+                const host = new URL(req.body.website);
+                const entity = yield CompanyController.service.create(Object.assign(Object.assign({}, req.body), { reviewsQuantity: 0, role: 3, website: host.host, password: yield encriptor_1.Encryptor.hash(req.body.password), ratingGeneral: 0 }));
                 const { password } = entity, data = __rest(entity, ["password"]);
                 yield algolia_1.Algolia.createCompany(entity);
                 res.status(200).json(data);
