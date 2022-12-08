@@ -43,7 +43,7 @@ class AuthController {
             try {
                 const mail = new gmail_1.MailService();
                 const entity = yield AuthController.AuthService.register(req.body);
-                yield mail.sendRegisterMail("alvarocanales1599@gmail.com", `Confirmación de registro`, `Hola ${entity.name} te damos la bienvenida a nuestro sitio!`);
+                yield mail.sendRegisterMail(entity.email, `Confirmación de registro`, `Hola ${entity.name} te damos la bienvenida a nuestro sitio!`);
                 res.status(200).send(entity);
             }
             catch (error) {
