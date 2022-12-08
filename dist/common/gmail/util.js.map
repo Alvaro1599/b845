@@ -1,0 +1,1 @@
+{"version":3,"file":"util.js","sourceRoot":"","sources":["../../../src/common/gmail/util.ts"],"names":[],"mappings":";;;AAAA,MAAa,MAAM;IACf,MAAM,CAAC,cAAc,CAAC,GAAW,EAAE,WAAmB;QAClD,OAAO;YACH,MAAM,EAAE,KAAK;YACb,GAAG;YACH,OAAO,EAAE;gBACL,aAAa,EAAE,SAAS,GAAG,WAAW;gBACtC,cAAc,EAAE,kBAAkB;aACrC;SACJ,CAAA;IACL,CAAC;CACJ;AAXD,wBAWC"}

@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const errorBase_1 = require("../../common/error/errorBase");
+const gmail_1 = require("../../common/gmail/gmail");
 const auth_service_1 = require("./auth.service");
 class AuthController {
     static login(req, res) {
@@ -40,10 +41,13 @@ class AuthController {
     static register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const mail = new gmail_1.MailService();
                 const entity = yield AuthController.AuthService.register(req.body);
+                yield mail.sendRegisterMail("alvarocanales1599@gmail.com", `Confirmación de registro`, `Hola ${entity.name} te damos la bienvenida a nuestro sitio!`);
                 res.status(200).send(entity);
             }
             catch (error) {
+                console.log(error);
                 const errorI = new errorBase_1.ErrorBase(error);
                 res.status(errorI.status).send(errorI.message);
             }
