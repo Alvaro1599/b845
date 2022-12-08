@@ -55,7 +55,8 @@ class ReviewService extends repository_1.RepositoryDB {
         };
     }
     upQuantityR(user, company, rating) {
-        user.reviewsQuantity = user.reviewsQuantity + 1;
+        var _a;
+        user.reviewsQuantity = (_a = user.reviewsQuantity + 1) !== null && _a !== void 0 ? _a : 1;
         company.ratingGeneral =
             (company.ratingGeneral * company.reviewsQuantity + rating) /
                 (company.reviewsQuantity + 1);

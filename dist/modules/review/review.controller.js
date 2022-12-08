@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReviewController = void 0;
+const algolia_1 = require("../../common/algolia/algolia");
 const company_service_1 = require("../company/company.service");
 const user_service_1 = require("../user/user.service");
 const review_service_1 = require("./review.service");
@@ -21,24 +22,31 @@ class ReviewController {
                 const url = new URL(req.body.companyUrl);
                 const user = (yield ReviewController.userService.findOneById(id));
                 let company = yield ReviewController.companyService.findOneByHostname(url.host);
+                if (!user) {
+                    return res.status(404).send("Usuario no encontrado");
+                }
                 if (!company) {
                     company = yield ReviewController.companyService.create(Object.assign(Object.assign({}, req.body.company), { ratingGeneral: 0, reviewsQuantity: 0, name: req.body.companyName, website: url.host, role: 3 }));
+                    yield algolia_1.Algolia.createCompany(company);
                 }
                 const { companyM, userM } = ReviewController.service.upQuantityR(user, company, req.body.rating);
                 yield ReviewController.userService.getRepository().save(userM);
                 yield ReviewController.companyService
                     .getRepository()
                     .save(companyM);
+                /*       if(!status){
+                  await Algolia.updateCompany(companyM)
+                } */
                 let formatDate = req.body.experienceDate.split("");
                 formatDate.pop();
                 formatDate = formatDate.join("");
-                const Review = yield ReviewController.service.create({
+                yield ReviewController.service.create({
                     company: company,
                     description: req.body.description,
                     rating: req.body.rating,
                     user: user,
                     title: req.body.title,
-                    experienceDate: formatDate
+                    experienceDate: formatDate,
                 });
                 return res.status(201).send("review creada correctamente");
             }

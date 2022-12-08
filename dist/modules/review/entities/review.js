@@ -33,7 +33,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Review.prototype, "experienceDate", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.review, { onDelete: "CASCADE", eager: true }),
+    (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.review, {
+        onDelete: "CASCADE",
+        eager: true,
+    }),
     __metadata("design:type", user_1.User)
 ], Review.prototype, "user", void 0);
 __decorate([
@@ -44,7 +47,11 @@ __decorate([
     __metadata("design:type", company_1.Company)
 ], Review.prototype, "company", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true, type: "timestamp", default: new Date().toISOString().slice(0, 19).replace('T', ' ') }),
+    (0, typeorm_1.Column)({
+        nullable: true,
+        type: "timestamp",
+        default: new Date().toISOString().slice(0, 19).replace("T", " "),
+    }),
     __metadata("design:type", Date)
 ], Review.prototype, "createdAt", void 0);
 Review = __decorate([

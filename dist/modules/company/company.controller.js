@@ -21,6 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompanyController = void 0;
+const algolia_1 = require("../../common/algolia/algolia");
 const encriptor_1 = require("../../common/encriptor/encriptor");
 const errorModel_1 = require("../../common/error/errorModel");
 const company_service_1 = require("./company.service");
@@ -37,7 +38,7 @@ class CompanyController {
             const { id } = req.params;
             const entity = yield CompanyController.service.findOne(id);
             const data = __rest(entity, []);
-            data.review = data.review.map(x => {
+            data.review = data.review.map((x) => {
                 x.company.password = "";
                 x.user.password = "";
                 return x;
@@ -51,6 +52,7 @@ class CompanyController {
             try {
                 const entity = yield CompanyController.service.create(Object.assign(Object.assign({}, req.body), { reviewsQuantity: 0, role: 3, password: yield encriptor_1.Encryptor.hash(req.body.password), ratingGeneral: 0 }));
                 const { password } = entity, data = __rest(entity, ["password"]);
+                yield algolia_1.Algolia.createCompany(entity);
                 res.status(200).json(data);
             }
             catch (error) {
@@ -67,9 +69,11 @@ class CompanyController {
                 delete req.body.user;
                 if (!req.body.password) {
                     yield CompanyController.service.updateById(Object.assign({}, req.body), id);
+                    yield algolia_1.Algolia.updateCompany(Object.assign(Object.assign({}, req.body), { id }));
                     return res.status(200).json("company update");
                 }
                 yield CompanyController.service.updateById(Object.assign(Object.assign({}, req.body), { password: yield encriptor_1.Encryptor.hash(req.body.password) }), id);
+                yield algolia_1.Algolia.updateCompany(Object.assign(Object.assign({}, req.body), { id }));
                 res.status(200).json("company update");
             }
             catch (error) {
@@ -85,8 +89,14 @@ class CompanyController {
             try {
                 const { id } = req.params;
                 delete req.body.user;
+                if (!req.body.password) {
+                    yield CompanyController.service.updateById(Object.assign({}, req.body), id);
+                    yield algolia_1.Algolia.updateCompany(Object.assign(Object.assign({}, req.body), { id }));
+                    return res.status(200).json("company update");
+                }
                 yield CompanyController.service.updateById(Object.assign(Object.assign({}, req.body), { password: yield encriptor_1.Encryptor.hash(req.body.password) }), id);
-                res.status(200).json("company update");
+                yield algolia_1.Algolia.updateCompany(Object.assign(Object.assign({}, req.body), { id }));
+                res.status(200).json("company updated");
             }
             catch (error) {
                 if (error instanceof errorModel_1.ErrorService) {
@@ -101,6 +111,7 @@ class CompanyController {
                 const { id } = req.params;
                 delete req.body.user;
                 yield CompanyController.service.deleteById(id);
+                yield algolia_1.Algolia.deleteCompany(Object.assign(Object.assign({}, req.body), { id }));
                 res.status(200).json("company deleted");
             }
             catch (error) {
@@ -114,6 +125,7 @@ class CompanyController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield CompanyController.service.deleteById(req.body.user.id);
+                yield algolia_1.Algolia.deleteCompany(Object.assign(Object.assign({}, req.body), { id: req.body.user.id }));
                 res.status(200).json("company deleted");
             }
             catch (error) {

@@ -13,7 +13,7 @@ class CompanyRouter {
         CompanyRouter.router.put("/", companyValidator_1.CompanyValidator.emptyCompany, common_1.CommonValidator.isCompany, CompanyRouter.controller.updateCompany);
         CompanyRouter.router.delete("/", common_1.CommonValidator.isCompany, CompanyRouter.controller.deleteCompany);
         CompanyRouter.router.delete("/admin/:id", common_1.CommonValidator.isAdmin, common_1.CommonValidator.uuidValidator, CompanyRouter.controller.deleteCompanyAdmin);
-        CompanyRouter.router.put("/admin/:id", common_1.CommonValidator.isAdmin, common_1.CommonValidator.uuidValidator, CompanyRouter.controller.updateCompanyAdmin);
+        CompanyRouter.router.put("/admin/:id", companyValidator_1.CompanyValidator.emptyCompany, common_1.CommonValidator.isAdmin, CompanyRouter.controller.updateCompanyAdmin);
         return CompanyRouter.router;
     }
 }

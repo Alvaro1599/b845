@@ -13,12 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompanyService = void 0;
+const errorModel_1 = require("../../common/error/errorModel");
 const repository_1 = require("../../common/repository");
 const datasource_1 = __importDefault(require("../../database/datasource"));
 const company_1 = require("./entities/company");
 class CompanyService extends repository_1.RepositoryDB {
     getRepository() {
         return datasource_1.default.getRepository(company_1.Company);
+    }
+    getCompanies() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.getRepository().find();
+        });
     }
     findOneById(id) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,8 +40,8 @@ class CompanyService extends repository_1.RepositoryDB {
                     id,
                 },
                 relations: {
-                    review: true
-                }
+                    review: true,
+                },
             });
         });
     }
@@ -55,7 +61,12 @@ class CompanyService extends repository_1.RepositoryDB {
     }
     updateById(data, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.getRepository().update(id, data);
+            try {
+                return yield this.getRepository().update(id, data);
+            }
+            catch (error) {
+                throw new errorModel_1.ErrorService(500, "error en el servidor");
+            }
         });
     }
     deleteById(id) {

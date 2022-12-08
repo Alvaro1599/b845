@@ -38,8 +38,7 @@ class AuthService {
                 const entity = yield this.userService.findOneByEmail(email);
                 if (!entity)
                     throw new errorModel_1.ErrorService(404, "Usuario no encontrado");
-                let validate;
-                validate = yield encriptor_1.Encryptor.compare(passwordRequest, entity.password);
+                const validate = yield encriptor_1.Encryptor.compare(passwordRequest, entity.password);
                 if (!validate) {
                     throw new errorModel_1.ErrorService(401, "Credenciales inválidas");
                 }
@@ -47,7 +46,6 @@ class AuthService {
                 return Object.assign(Object.assign({}, jwt_1.Jwt.encoder(data)), { user: Object.assign({}, data) });
             }
             catch (error) {
-                console.log(error);
                 throw new errorModel_1.ErrorService(500, "error en el servidor");
             }
         });
